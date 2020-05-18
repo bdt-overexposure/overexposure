@@ -1,0 +1,12 @@
+@font-face{
+    font-family: 'LIGHT';
+    src:url('Light.otf');
+}
+@font-face{
+    font-family: 'NORMAL';
+    src:url('Normal.otf');
+}
+@font-face{
+    font-family: 'REGULAR';
+    src:url('Regular.otf');
+}

@@ -1,20 +1,14 @@
 <template>
   <div id="app">
-    <!-- Left side -->
-    <div id="left">
-      <header id="header">
-        <div class="demo">Demo</div>
-        <div class="black">Black</div>
-      </header>
-        <router-view/>
-    </div>
-    <!-- Right side -->
-    <div id="right">
-      <header id="sub-header">
-        <div class="white">white</div>
-      </header>
-      <!-- Actual resize handle -->
-      <div id="handle"></div>
+    <header>
+        <span class="tag-1"><div class="point"></div>{{text1}}</span>
+        <span class="tag-2">{{text2}}</span>
+        <span class="tag-3">{{text3}}</span>
+        <span class="tag-4">{{text4}}</span>
+    </header>
+    <div class="page">
+      <router-view name="photo" class="photo"/>
+      <router-view name="content" class="content"/>
     </div>
   </div>
 </template>
@@ -22,137 +16,61 @@
 <script>
 export default {
   name: 'App',
-  data: function () {
-    return {}
-  },
-  components: {},
-  mounted () {
-    $(function () {
-      // eslint-disable-next-line one-var
-      var isResizing = false
-      // eslint-disable-next-line no-unused-vars
-      var lastDownX = 0
-      // eslint-disable-next-line one-var
-      var container = $('#app'), left = $('#left'), right = $('#right'), handle = $('#handle'), header = $('header'), subHeader = $('#sub-header')
-      handle.on('mousedown', function (e) { isResizing = true; lastDownX = e.clientX })
-      $(document).on('mousemove', function (e) {
-        if (!isResizing) return
-        var offsetRight = container.width() - (e.clientX - container.offset().left)
-        left.css('right', offsetRight)
-        right.css('width', offsetRight)
-        header.css('right', offsetRight)
-        subHeader.css('width', offsetRight - 20)
-      }).on('mouseup', function (e) { isResizing = false })
-    })
+  data () {
+    return {
+      text1: '过 曝 →',
+      text2: 'screen time',
+      text3: 'tags↓',
+      text4: 'videos ↵'
+    }
   }
 }
 </script>
 
 <style>
-body,
-html {
-  width: 100%;
-  height: 100%;
-  margin: 0;
+body {
   padding: 0;
+  margin: 0;
 }
-
-#app {
-  width: 100%;
-  height: 100%;
-  /* Disable selection so it doesn't get annoying */
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: moz-none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-#left {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0px;
-  background: black;
-  color: white;
-  overflow: scroll;
-  max-width: 70vw;
-  min-width: 30vw;
-}
-
-#right {
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  background: white;
-  min-width: 30vw;
-  max-width: 70vw;
-  overflow: scroll;
-}
-
-#handle {
-  position: absolute;
-  left: -4px;
-  top: 0;
-  width: 15px;
-  cursor: ew-resize;
-  background-color: gray;
-  height: 5000px;
-  z-index: 100;
-}
-#header {
-  min-width: 28.5vw;
-  max-width: 69vw;
-  height: 20px;
-  /* Safari for macOS & iOS */
-  -webkit-backdrop-filter: blur(15px);
-  /* Google Chrome */
-  backdrop-filter: blur(15px);
-  /* 设置背景半透明黑色 */
-  background: rgba(255, 255, 255, 0.8);
-  position: fixed;
-  display: flex;
-  left: 0;
-  right: 30vw;
-  top: 0;
-  padding: 10px;
-  justify-content: center;
-  align-items: center;
-  z-index: 99;
+header{
+  width: 90vw;
+  height: 8vh;
+  margin: 1px auto;
   color: #000;
-}
-#sub-header {
-  min-width: 28.5vw;
-  max-width: 68vw;
-  height: 20px;
-  /* Safari for macOS & iOS */
-  -webkit-backdrop-filter: blur(15px);
-  /* Google Chrome */
-  backdrop-filter: blur(15px);
-  /* 设置背景半透明黑色 */
-  background: rgba(0, 0, 0, 0.8);
-  position: fixed;
+  font-family: "Light";
+  font-size: 1.1em;
   display: flex;
-  top: 0;
-  right: 0 !important;
-  padding: 10px;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  color: white;
+  border-bottom: solid black 1px;
+  position: flex;
+  top:0;
 }
-.demo {
-  position: absolute;
-  left: 10px;
+.tag-1{
+  position: relative;
+  left:20px;
 }
-.black {
+.point{
   position: absolute;
-  right: 10px;
+  left:-30px;
+  width: 20px;
+  height: 20px;
+  background-color:black;
+  border-radius: 50%;
 }
-.white {
-  position: absolute;
-  left: 10px;
+.page{
+  display: flex;
+}
+.photo{
+  width: 15vw;
+  margin-left: 4vw;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2vh;
+}
+.content {
+  margin-left: 20vw;
 }
 </style>
